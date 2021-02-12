@@ -25,7 +25,13 @@ if (isset($_POST['action']) || isset($_GET['action'])) {
             break;
         case("edit"):
             $employee_id = isset($_GET['id']) ? $_GET['id'] : "";
+            edit_employee($employee_id, $empleados);
+            return_index();
             break;
+        case("order"):
+            $legajo_var = isset($_GET['legajo']) ? $_GET['legajo'] : "";
+            order_employee($empleados, $legajo_var);
+            return_index();
         default:
             return_index();
     }
@@ -69,6 +75,25 @@ function del_employee($employee_id, $empleados) {
         save_empleados($empleados);
     }
 }
+
+function edit_employee($employee_id, $empleados){
+    if (in_array($employee_id, array_keys($empleados))){
+        $empleados[$employee_id]; //ver
+        save_empleados($empleados);
+    }
+}
+
+
+function order_employee($empleados, $legajo_var){
+    if (in_array($employee_id, array_keys($empleados))){
+
+    $legajo_var = array_column($empleados, 'legajo');
+    asort($legajo_var);
+    save_empleados($empleados);
+    print_r($legajo_var);
+    }
+}
+
 
 function return_index() {
     header('LOCATION: index.php');
